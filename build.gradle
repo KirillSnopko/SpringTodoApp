@@ -1,0 +1,41 @@
+group 'org.example'
+version '1.0-SNAPSHOT'
+
+
+apply plugin: 'java'
+apply plugin: 'war'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    providedCompile('javax:javaee-web-api:8.0.1')
+    implementation group: 'org.springframework', name: 'spring-webmvc', version: '5.3.15'
+
+    implementation group: 'org.springframework.security', name: 'spring-security-config', version: '5.6.1'
+    implementation group: 'org.springframework.security', name: 'spring-security-web', version: '5.6.1'
+    implementation group: 'org.springframework.security', name: 'spring-security-core', version: '5.6.1'
+
+    //implementation group: 'org.springframework.data', name: 'spring-data-jpa', version: '2.6.1'
+   // implementation 'com.h2database:h2:2.1.210'
+    //testImplementation group: 'com.h2database', name: 'h2', version: '2.1.210'
+
+    implementation group: 'org.thymeleaf', name: 'thymeleaf-spring5', version: '3.0.14.RELEASE'
+    implementation group: 'nz.net.ultraq.thymeleaf', name: 'thymeleaf-layout-dialect', version: '3.0.0'
+   // implementation group: 'org.slf4j', name: 'slf4j-api', version: '1.7.35'
+   // testImplementation group: 'org.slf4j', name: 'slf4j-simple', version: '1.7.35'
+
+    implementation group: 'org.apache.tomcat', name: 'tomcat-catalina', version: '9.0.52'
+
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.2'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.2'
+}
+
+war {
+    archiveName 'warka.war'
+}
+
+test {
+    useJUnitPlatform()
+}
