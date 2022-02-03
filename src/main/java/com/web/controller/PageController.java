@@ -22,4 +22,9 @@ public class PageController {
     public String displayRegistration(Model model) {
         return "registration";
     }
+
+    @GetMapping("/user/todo")
+    public String displayTodo(Model model) {
+        return "todo";
+    }
 }

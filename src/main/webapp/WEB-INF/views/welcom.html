@@ -3,10 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <title>TODO</title>
+    <style type="text/css">
+    .wel {
+    width: 400px;
+	height: 120px;
+	margin: 40px auto;
+	background: #ccc;
+	border: 1px solid #fff;
+	border-radius: 15px;
+	position: fixed;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	}
+    </style>
 </head>
 <body>
-<h1>Login for registered users only</h1>
-<a th:href="@{'/pageLogin'}">Login</a>
-<a th:href="@{'/pageRegistration'}">Registration</a>
+<center>
+    <div class="wel">
+        <h2>Login for registered users only</h2>
+        <a th:href="@{'/pageLogin'}" style="background-color:DodgerBlue">Login</a>
+        <a th:href="@{'/pageRegistration'}" style="background-color:Tomato;">Registration</a>
+    </div>
+</center>
 </body>
 </html>

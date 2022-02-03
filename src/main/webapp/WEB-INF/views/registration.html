@@ -4,8 +4,58 @@
 <head>
     <meta charset="UTF-8">
     <title>TODO</title>
+    <style type="text/css">
+    .reg {
+    width: 300px;
+	height: 380px;
+	margin: 40px auto;
+	background: #ccc;
+	border: 1px solid #fff;
+	border-radius: 15px;
+	position: fixed;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	}
+    </style>
 </head>
 <body>
-
+<center>
+    <div class="reg">
+    <h2>Registration</h2>
+    <form th:action="@{/registration}" th:method="POST">
+        <label>First Name</label>
+        <br/>
+        <input type="text" name="firstName" required/>
+        <br/>
+        <label>Second Name</label>
+        <br/>
+        <input type="text" name="secondName" required/>
+        <br/>
+        <label>Login</label>
+        <br/>
+        <input type="text" name="login" required/>
+        <br/>
+        <label>Password</label>
+        <br/>
+        <input type="text" name="password" required/>
+        <br/>
+        <label>Email</label>
+        <br/>
+        <input type="email" name="email" required/>
+        <br/>
+        <label>Role</label>
+        <br/>
+        <input type="radio" name="role" value="user" id="ch1" checked/>
+        <label for="ch1">User</label>
+        <input type="radio" name="role" value="admin" id="ch2"/>
+        <label for="ch2">Admin</label>
+        <br/><br/>
+        <input type="submit" value="Submit" style="background-color:DodgerBlue;"/>
+        <input type="reset" value="Reset" style="background-color:Tomato;"/>
+    </form>
+    </div>
+</center>
 </body>
 </html>
