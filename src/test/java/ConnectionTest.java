@@ -1,4 +1,4 @@
-import com.web.config.database.H2Config;
+import com.web.config.database.MySQLConfig;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -8,7 +8,7 @@ public class ConnectionTest {
 
     @Test
     void testConnection() throws SQLException {
-        H2Config db = new H2Config();
+        MySQLConfig db = new MySQLConfig();
         Assertions.assertTrue(db.dataSource().getConnection() != null);
     }
 }

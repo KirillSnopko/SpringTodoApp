@@ -10,20 +10,23 @@ import javax.sql.DataSource;
 
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-
+/*
     @Autowired
     public void configGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth.inMemoryAuthentication().withUser("kira").password("{noop}1234").roles("USER");
     }
-
- /*   @Autowired
+*/
+    @Autowired
     private DataSource dataSource;
 
      @Autowired
      public void configGlobal(AuthenticationManagerBuilder auth)throws Exception {
          auth.jdbcAuthentication().dataSource(dataSource);
+             //    .usersByUsernameQuery("")
+             //    .authoritiesByUsernameQuery("");
+
      }
-*/
+
     /*
      usernameParameter("login") вместо дефолтного значение "username"
      loginProcessingUrl("/login") - form action="/login" если по дефолту, можно не указывать
@@ -34,8 +37,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/user").hasRole("USER")
-                .antMatchers("/admin").hasAnyRole("ADMIN")
+                .antMatchers("/user/*").hasRole("USER")
+                .antMatchers("/admin/*").hasAnyRole("ADMIN")
                 .antMatchers("/").permitAll()
                 .and().csrf().disable()
                 .formLogin()
