@@ -1,6 +1,6 @@
 package com.web.config.mvc;
 
-import org.h2.server.web.WebServlet;
+import com.web.config.database.MySQLConfig;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 import javax.servlet.ServletContext;
@@ -13,7 +13,7 @@ public class MvcWebApplicationInitializer extends AbstractAnnotationConfigDispat
     @Override
     //null -> SecurityConfig.class, ---DatabaseConfig.class---return new Class[]{RootConfiguration.class
     protected Class<?>[] getRootConfigClasses() {
-        return new Class[]{RootConfiguration.class};
+        return new Class[]{MySQLConfig.class,RootConfiguration.class};
     }
 
     @Override
@@ -23,7 +23,7 @@ public class MvcWebApplicationInitializer extends AbstractAnnotationConfigDispat
 
     /*
     for H2 database
-     */
+
     @Override
     public void onStartup(ServletContext servletContext) throws ServletException {
         super.onStartup(servletContext);
@@ -32,7 +32,7 @@ public class MvcWebApplicationInitializer extends AbstractAnnotationConfigDispat
         servlet.setLoadOnStartup(1);
         servlet.addMapping("/console/*");
     }
-
+ */
     @Override
     protected String[] getServletMappings() {
         return new String[]{"/*"};

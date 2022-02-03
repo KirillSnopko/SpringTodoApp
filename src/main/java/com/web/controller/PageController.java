@@ -13,7 +13,7 @@ public class PageController {
         return "welcom";
     }
 
-    @GetMapping("/pageLogin")
+    @GetMapping("/login")
     public String displayLogin(Model model) {
         return "login";
     }
