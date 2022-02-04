@@ -3,3 +3,4 @@
 /.idea/workspace.xml
 /.idea/
 /.gradle/
+/build/classes/java/main/com/web/service/MySimpleUrlAuthenticationSuccessHandler.class
