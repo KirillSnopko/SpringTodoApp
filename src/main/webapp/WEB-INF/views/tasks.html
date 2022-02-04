@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>TODO</title>
+    <meta charset="UTF-8">
+</head>
+<body>
+<table
+        border="1"
+        align="center"
+        rules="rows"
+        style="width:100%;">
+
+    <tr>
+        <td>
+
+            <!--ШАПКА САЙТА-->
+            <table
+                    border="1"
+                    background="images/168.png"
+                    bgcolor="#7FFFD4"
+                    cellpadding="10"
+                    style="width:100%; border-radius:5px;">
+
+                <tr>
+                    <th>
+                        <h1>TODO</h1>
+                        <h3>Service for working with projects</h3>
+                    </th>
+                </tr>
+            </table>
+
+            <!--ОСНОВНОЙ КОНТЕНТ-->
+            <table
+                    border="1"
+                    bgcolor="#e6e6fa"
+                    cellpadding="10"
+                    style="width:100%; border-radius:5px;">
+
+                <tr>
+                    <td bgcolor="#e6e6fa">
+                        <h3>Menu</h3>
+                        <p>
+                            <a th:href="@{'/user'}">
+                                <img src="https://img.icons8.com/ios-filled/30/000000/log-cabin.png"/>
+                                <span style="margin-left:5px;">Home page</span></a>
+                        </p>
+                        <p>
+                            <a th:href="@{'/user/projects'}">
+                                <img src="https://img.icons8.com/ios-glyphs/30/000000/marketing.png"/>
+                                <span style="margin-left:5px;">Projects</span></a>
+                        </p>
+                        <p>
+                            <a th:href="@{'/user/tasks'}">
+                                <img src="https://img.icons8.com/ios-glyphs/30/000000/to-do.png"/>
+                                <span style="margin-left:5px;">Tasks</span></a>
+                        </p>
+                        <p>
+                            <a th:href="@{'/logout'}">
+                                <img src="https://img.icons8.com/ios-glyphs/30/000000/exit.png"/>
+                                <span style="margin-left:5px;">Logout</span></a>
+                        </p>
+                    </td>
+                    <td rowspan="2" style="width:80%">
+                        <h2>Tasks</h2>
+                        <p style="text-indent:20px">Some information
+                        </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td
+                            bgcolor="#e6e6fa"
+                            align="center">
+                        <h3>Общая информация</h3>
+                        <p>Текст общей информации или реклама</p>
+                    </td>
+                </tr>
+            </table>
+
+            <!--ПОДВАЛ-->
+            <table
+                    border="1"
+                    bgcolor="#7FFFD4"
+                    height="100"
+                    cellpadding="10"
+                    style="width:100%; border-radius:5px;">
+                <!--Создаём строку.-->
+                <tr>
+                    <!--Создаём столбец-->
+                    <th>
+                        Developed by Snopko Kirill
+                        <a href="mailto:kirillsnopko@gmail.com">kirillsnopko@gmail.com</a>
+                        <br/>
+                        <a>
+                            Icon by <a href="https://icons8.com/icon/59781/выход">Icons8</a>
+                        </a>
+                    </th>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
+
+</body>
+</html>
