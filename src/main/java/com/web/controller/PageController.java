@@ -29,8 +29,18 @@ public class PageController {
         return "registration";
     }
 
-    @GetMapping("/user/todo")
+    @GetMapping("/user")
     public String displayTodo(Model model) {
-        return "todo";
+        return "user";
+    }
+
+    @GetMapping("/user/projects")
+    public String displayProjects(Model model) {
+        return "projects";
+    }
+
+    @GetMapping("/user/tasts")
+    public String displayTasks(Model model) {
+        return "tasks";
     }
 }
