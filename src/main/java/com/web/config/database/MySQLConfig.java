@@ -3,6 +3,7 @@ package com.web.config.database;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
@@ -10,8 +11,13 @@ import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 import javax.sql.DataSource;
 
 @Configuration
-@ComponentScan("com.web.config.security")
+@ComponentScan({"com.web.config.security", "com.web.repo"})
 public class MySQLConfig {
+
+    @Bean
+    public JdbcTemplate getJdbcTemplate() {
+        return new JdbcTemplate(dataSource());
+    }
 
     @Bean
     public DataSource dataSource() {
@@ -22,4 +28,4 @@ public class MySQLConfig {
         driverManagerDataSource.setPassword("jse");
         return driverManagerDataSource;
     }
-   }
+}

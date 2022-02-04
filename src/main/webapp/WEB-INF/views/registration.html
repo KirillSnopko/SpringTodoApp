@@ -24,7 +24,7 @@
 <center>
     <div class="reg">
     <h2>Registration</h2>
-    <form th:action="@{/registration}" th:method="POST">
+    <form th:action="@{/signup}" th:method="POST" th:object="${user}" name="user">
         <label>First Name</label>
         <br/>
         <input type="text" name="firstName" required/>
@@ -47,9 +47,9 @@
         <br/>
         <label>Role</label>
         <br/>
-        <input type="radio" name="role" value="user" id="ch1" checked/>
+        <input type="radio" name="role" value="ROLE_USER" id="ch1" checked/>
         <label for="ch1">User</label>
-        <input type="radio" name="role" value="admin" id="ch2"/>
+        <input type="radio" name="role" value="ROLE_ADMIN" id="ch2"/>
         <label for="ch2">Admin</label>
         <br/><br/>
         <input type="submit" value="Submit" style="background-color:DodgerBlue;"/>

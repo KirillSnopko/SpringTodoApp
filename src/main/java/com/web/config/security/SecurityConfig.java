@@ -27,12 +27,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
      }
 
-    /*
-     usernameParameter("login") вместо дефолтного значение "username"
-     loginProcessingUrl("/login") - form action="/login" если по дефолту, можно не указывать
-     logoutUrl("logout") - form action="/logout" если по дефолту, можно не указывать
-     logoutSuccessUrl("/") - куда попадаем после выхода
-*/
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
@@ -40,6 +34,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/user/*").hasRole("USER")
                 .antMatchers("/admin/*").hasAnyRole("ADMIN")
                 .antMatchers("/").permitAll()
+                .antMatchers("/login","/sign_up","/signup").anonymous()
                 .and().csrf().disable()
                 .formLogin()
                 .loginPage("/login")
@@ -47,7 +42,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .usernameParameter("login")
                 .and()
                 .logout()
-                .logoutUrl("logout")
+                .logoutUrl("/logout")
                 .logoutSuccessUrl("/")
                 .invalidateHttpSession(true)
                 .deleteCookies("JSESSIONID");
