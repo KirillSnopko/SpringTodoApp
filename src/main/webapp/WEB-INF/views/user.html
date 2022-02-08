@@ -38,6 +38,70 @@
                     style="width:100%; border-radius:5px;">
 
                 <tr>
+                    <td bgcolor="#e6e6fa" align="left">
+                        <table>
+                            <tr>
+                                <th>First Name</th>
+                                <th th:text="${user.firstName}"/>
+                            </tr>
+                            <tr>
+                                <th>Second Name</th>
+                                <th th:text="${user.secondName}"/>
+                            </tr>
+                            <tr>
+                                <th>Email</th>
+                                <th th:text="${user.email}"/>
+                            </tr>
+                            <tr>
+                                <th>Role</th>
+                                <th th:text="${user.role}"/>
+                            </tr>
+                        </table>
+                    </td>
+
+                    <td rowspan="2" style="width:80%">
+
+                        <h3>Projects</h3>
+                        <table border="1">
+                            <tr>
+                                <th>Id</th>
+
+                            </tr>
+
+                            <tr th:each="projectId : ${projectsId}">
+                                <td th:text="${projectId}"/>
+                                <td>
+                                    <a th:href="@{'/project/get/?projectId=' + ${projectId}}">
+                                        <img src="https://img.icons8.com/ios-glyphs/30/000000/login-rounded-right--v1.png"/>
+                                    </a>
+                                </td>
+
+                                <td>
+                                    <div th:if="${user.role=='ROLE_ADMIN'}">
+                                        <a th:href="@{'/admin/project/delete/?projectId=' + ${projectId}}">
+                                            <img src="https://img.icons8.com/ios-glyphs/30/000000/close-window.png"/>
+                                        </a>
+                                    </div>
+
+                                </td>
+                            </tr>
+
+                        </table>
+
+                        <!--Добавить новое задание-->
+                        <div th:if="${user.role=='ROLE_ADMIN'}">
+                            <br/>
+                            <h3>Add project</h3>
+                            <form th:action="@{/admin/project/add/}" th:method="POST" th:object="${project}"
+                                  name="project">
+                                <input type="hidden" name="admin" th:value="${user.id}"/>
+                                <input type="submit" value="Add" style="background-color:DodgerBlue;"/>
+                            </form>
+                        </div>
+
+                    </td>
+                </tr>
+                <tr>
                     <td bgcolor="#e6e6fa">
                         <h3>Menu</h3>
                         <p>
@@ -46,33 +110,10 @@
                                 <span style="margin-left:5px;">Home page</span></a>
                         </p>
                         <p>
-                            <a th:href="@{'/user/projects'}">
-                                <img src="https://img.icons8.com/ios-glyphs/30/000000/marketing.png"/>
-                                <span style="margin-left:5px;">Projects</span></a>
-                        </p>
-                        <p>
-                            <a th:href="@{'/user/tasks'}">
-                                <img src="https://img.icons8.com/ios-glyphs/30/000000/to-do.png"/>
-                                <span style="margin-left:5px;">Tasks</span></a>
-                        </p>
-                        <p>
                             <a th:href="@{'/logout'}">
                                 <img src="https://img.icons8.com/ios-glyphs/30/000000/exit.png"/>
                                 <span style="margin-left:5px;">Logout</span></a>
                         </p>
-                    </td>
-                    <td rowspan="2" style="width:80%">
-                        <h2>Home page</h2>
-                        <p style="text-indent:20px">Some information
-                        </p>
-                    </td>
-                </tr>
-                <tr>
-                    <td
-                            bgcolor="#e6e6fa"
-                            align="center">
-                        <h3>Общая информация</h3>
-                        <p>Текст общей информации или реклама</p>
                     </td>
                 </tr>
             </table>

@@ -17,8 +17,9 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-public class MySimpleUrlAuthenticationSuccessHandler
-        implements AuthenticationSuccessHandler {
+import static com.web.utils.ConstantClass.*;
+
+public class MySimpleUrlAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
 
     protected Log logger = LogFactory.getLog(this.getClass());
     private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
@@ -27,7 +28,6 @@ public class MySimpleUrlAuthenticationSuccessHandler
     public void onAuthenticationSuccess(HttpServletRequest request,
                                         HttpServletResponse response, Authentication authentication)
             throws IOException {
-
         handle(request, response, authentication);
         clearAuthenticationAttributes(request);
     }
@@ -37,25 +37,19 @@ public class MySimpleUrlAuthenticationSuccessHandler
             HttpServletResponse response,
             Authentication authentication
     ) throws IOException {
-
         String targetUrl = determineTargetUrl(authentication);
-
         if (response.isCommitted()) {
-            logger.debug(
-                    "Response has already been committed. Unable to redirect to "
-                            + targetUrl);
+            logger.debug("Response has already been committed. Unable to redirect to " + targetUrl);
             return;
         }
-
         redirectStrategy.sendRedirect(request, response, targetUrl);
     }
 
+    // если бы были разные страницы для user и admin
     protected String determineTargetUrl(final Authentication authentication) {
-
         Map<String, String> roleTargetUrlMap = new HashMap<>();
-        roleTargetUrlMap.put("ROLE_USER", "/user");
-        roleTargetUrlMap.put("ROLE_ADMIN", "/admin");
-
+        roleTargetUrlMap.put(ROLE_USER, URL_USER);
+        roleTargetUrlMap.put(ROLE_ADMIN, URL_USER);
         final Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
         for (final GrantedAuthority grantedAuthority : authorities) {
             String authorityName = grantedAuthority.getAuthority();

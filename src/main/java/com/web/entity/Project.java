@@ -1,15 +1,31 @@
 package com.web.entity;
-/*
-import javax.persistence.*;
-import java.util.List;
 
 public class Project {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private List<Task> tasks;
-    private List<User> users;
-    private User admin;
-    private Status status;
+    private String admin;
+    private String status;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getAdmin() {
+        return admin;
+    }
+
+    public void setAdmin(String admin) {
+        this.admin = admin;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
 }
-*/

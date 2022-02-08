@@ -11,7 +11,7 @@ import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 import javax.sql.DataSource;
 
 @Configuration
-@ComponentScan({"com.web.config.security", "com.web.repo"})
+@ComponentScan({"com.web.config.security", "com.web.repo","com.web.service"})
 public class MySQLConfig {
 
     @Bean

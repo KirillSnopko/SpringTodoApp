@@ -46,33 +46,115 @@
                                 <span style="margin-left:5px;">Home page</span></a>
                         </p>
                         <p>
-                            <a th:href="@{'/user/projects'}">
-                                <img src="https://img.icons8.com/ios-glyphs/30/000000/marketing.png"/>
-                                <span style="margin-left:5px;">Projects</span></a>
-                        </p>
-                        <p>
-                            <a th:href="@{'/user/tasks'}">
-                                <img src="https://img.icons8.com/ios-glyphs/30/000000/to-do.png"/>
-                                <span style="margin-left:5px;">Tasks</span></a>
-                        </p>
-                        <p>
                             <a th:href="@{'/logout'}">
                                 <img src="https://img.icons8.com/ios-glyphs/30/000000/exit.png"/>
                                 <span style="margin-left:5px;">Logout</span></a>
                         </p>
                     </td>
+
                     <td rowspan="2" style="width:80%">
-                        <h2>Projects</h2>
-                        <p style="text-indent:20px">Some information
-                        </p>
-                    </td>
-                </tr>
-                <tr>
-                    <td
-                            bgcolor="#e6e6fa"
-                            align="center">
-                        <h3>Общая информация</h3>
-                        <p>Текст общей информации или реклама</p>
+                        <h2>Current project</h2>
+                        <table cellpadding="5" border="1">
+                            <tr>
+                                <th>Id</th>
+                                <th>Admin</th>
+                                <th>Status</th>
+                                <div th:if="${user.role=='ROLE_ADMIN'}">
+                                    <th>Change Status</th>
+                                    <th>Add user in project</th>
+                                </div>
+                            </tr>
+
+                            <tr>
+                                <td th:text="${project.id}"/>
+                                <td th:text="${project.admin}"/>
+                                <td th:text="${project.status}"/>
+                                <div th:if="${user.role=='ROLE_ADMIN'}">
+                                    <td>
+                                        <form th:action="@{/admin/project/change/status/}" th:method="POST"
+                                              th:object="${string}"
+                                              name="status">
+                                            <input type="hidden" name="idProject" th:value="${project.id}"/>
+                                            <select name="status">
+                                                <option value="IN_PROGRESS">IN_PROGRESS</option>
+                                                <option value="COMPLETED">COMPLETED</option>
+                                            </select>
+                                            <br/><br/>
+                                            <input type="submit" value="Change" style="background-color:DodgerBlue;"/>
+                                        </form>
+                                    </td>
+                                    <td>
+                                        <form th:action="@{/project/add_user/}" th:method="POST"
+                                              th:object="${string}"
+                                              name="status">
+                                            <input type="hidden" name="idProject" th:value="${project.id}"/>
+                                            <select name="idUser">
+                                                <option th:each="map : ${usersOutProject}" th:value="${map.key}"
+                                                        th:text="${map.value}"/>
+                                            </select>
+                                            <br/><br/>
+                                            <input type="submit" value="Add" style="background-color:DodgerBlue;"/>
+                                        </form>
+                                    </td>
+                                </div>
+
+                            </tr>
+                        </table>
+
+
+                        <h3>Tasks</h3>
+                        <div th:if="${!tasks.isEmpty()}">
+                            <table cellpadding="5" border="1">
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Id project</th>
+                                    <th>task</th>
+                                    <th>executor</th>
+                                    <th>Start</th>
+                                    <th>Finish</th>
+                                    <th>Status</th>
+                                </tr>
+
+                                <tr th:each="task : ${tasks}">
+                                    <td th:text="${task.id}"/>
+                                    <td th:text="${task.idProject}"/>
+                                    <td th:text="${task.task}"/>
+                                    <td th:text="${usersInProject.get(task.idUser)}"/>
+                                    <td th:text="${task.dateStart}"/>
+                                    <td th:text="${task.dateFinish}"/>
+                                    <td th:text="${task.status}"/>
+                                    <td><a th:href="@{'/task/get/?taskId=' + ${task.id}}">
+                                        <img src="https://img.icons8.com/ios-glyphs/30/000000/login-rounded-right--v1.png"/>
+                                    </a>
+                                    </td>
+                                    <td>
+                                        <div th:if="${user.role=='ROLE_ADMIN'}">
+                                            <a th:href="@{'/admin/task/delete/?taskId=' + ${task.id} +'&projectId=' + ${project.id}}">
+                                                <img src="https://img.icons8.com/ios-glyphs/30/000000/close-window.png"/>
+                                            </a>
+                                        </div>
+
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <br/>
+                        <h3>Add task</h3>
+                        <form th:action="@{/task/add}" th:method="POST" th:object="${task}" name="task">
+                            <input type="hidden" name="idProject" th:value="${project.id}"/>
+                            <label>Task</label>
+                            <br/>
+                            <input type="text" name="task" required/>
+                            <br/>
+                            <label>Executor</label>
+                            <br/>
+                            <select name="idUser">
+                                <option th:each="map : ${usersInProject}" th:value="${map.key}" th:text="${map.value}"/>
+                            </select>
+                            <br/><br/>
+                            <input type="submit" value="Submit" style="background-color:DodgerBlue;"/>
+                            <input type="reset" value="Reset" style="background-color:Tomato;"/>
+                        </form>
                     </td>
                 </tr>
             </table>
