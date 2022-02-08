@@ -26,19 +26,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     public void configGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth.jdbcAuthentication().dataSource(dataSource);
-        //    .usersByUsernameQuery("")
-        //    .authoritiesByUsernameQuery("");
-
+        auth.jdbcAuthentication().dataSource(dataSource)
+                .usersByUsernameQuery("select username as principal, password as credentials, true from users where username = ?")
+                .authoritiesByUsernameQuery("select username as principal, authority as role from users where username = ?");
     }
 
-    //defaultSuccessUrl("/user")
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/user/*", "/user").hasRole("USER")
-                .antMatchers("/admin/*", "/admin").hasAnyRole("ADMIN")
+                .antMatchers("/user","/project/**","/task/**").hasAnyRole("ADMIN", "USER")
+                .antMatchers("/admin/*").hasRole("ADMIN")
                 .antMatchers("/").permitAll()
                 .antMatchers("/login", "/sign_up", "/signup").anonymous()
                 .and().csrf().disable()
@@ -50,7 +48,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .logout()
                 .logoutUrl("/logout")
-                .logoutSuccessUrl("/")
+                .logoutSuccessUrl("/login")
                 .invalidateHttpSession(true)
                 .deleteCookies("JSESSIONID");
     }

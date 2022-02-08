@@ -1,5 +1,7 @@
 package com.web.entity;
 
+import java.util.Objects;
+
 public class User {
     private int id;
     private String firstName;
@@ -67,6 +69,19 @@ public class User {
 
     public String getRole() {
         return role;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return id == user.id && Objects.equals(firstName, user.firstName) && Objects.equals(secondName, user.secondName) && Objects.equals(login, user.login) && Objects.equals(password, user.password) && Objects.equals(email, user.email) && Objects.equals(role, user.role);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, firstName, secondName, login, password, email, role);
     }
 }
 

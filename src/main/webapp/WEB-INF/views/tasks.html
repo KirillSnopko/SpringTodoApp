@@ -46,12 +46,7 @@
                                 <span style="margin-left:5px;">Home page</span></a>
                         </p>
                         <p>
-                            <a th:href="@{'/user/projects'}">
-                                <img src="https://img.icons8.com/ios-glyphs/30/000000/marketing.png"/>
-                                <span style="margin-left:5px;">Projects</span></a>
-                        </p>
-                        <p>
-                            <a th:href="@{'/user/tasks'}">
+                            <a th:href="@{'/project/get/?projectId=' + ${task.idProject}}">
                                 <img src="https://img.icons8.com/ios-glyphs/30/000000/to-do.png"/>
                                 <span style="margin-left:5px;">Tasks</span></a>
                         </p>
@@ -61,18 +56,76 @@
                                 <span style="margin-left:5px;">Logout</span></a>
                         </p>
                     </td>
+
                     <td rowspan="2" style="width:80%">
-                        <h2>Tasks</h2>
-                        <p style="text-indent:20px">Some information
-                        </p>
-                    </td>
-                </tr>
-                <tr>
-                    <td
-                            bgcolor="#e6e6fa"
-                            align="center">
-                        <h3>Общая информация</h3>
-                        <p>Текст общей информации или реклама</p>
+                        <h2>Current task</h2>
+                        <table cellpadding="5" border="1">
+                            <tr>
+                                <th>Id</th>
+                                <th>Id project</th>
+                                <th>task</th>
+                                <th>Start</th>
+                                <th>Finish</th>
+                                <th>Status</th>
+                                <th>Change Status</th>
+                            </tr>
+
+                            <tr>
+                                <td th:text="${task.id}"/>
+                                <td th:text="${task.idProject}"/>
+                                <td th:text="${task.task}"/>
+                                <td th:text="${task.dateStart}"/>
+                                <td th:text="${task.dateFinish}"/>
+                                <td th:text="${task.status}"/>
+                                <div th:if="${task.status!='COMPLETED'}">
+                                    <td>
+                                        <form th:action="@{/task/change/status}" th:method="POST" th:object="${string}"
+                                              name="status">
+                                            <input type="hidden" name="idTask" th:value="${task.id}"/>
+                                            <select name="status">
+                                                <option value="IN_PROGRESS">IN_PROGRESS</option>
+                                                <option value="COMPLETED">COMPLETED</option>
+                                            </select>
+                                            <br/><br/>
+                                            <input type="submit" value="Change" style="background-color:DodgerBlue;"/>
+                                        </form>
+                                    </td>
+                                </div>
+                            </tr>
+                        </table>
+
+
+                        <h3>Comments</h3>
+
+                        <table cellpadding="5" border="1">
+                            <tr>
+                                <th>Id</th>
+                                <th>Comment</th>
+                                <th>Author</th>
+                                <th>Date</th>
+                            </tr>
+
+                            <tr th:each="comment : ${comments}">
+                                <td th:text="${comment.id}"/>
+                                <td th:text="${comment.comment}"/>
+                                <td th:text="${comment.login}"/>
+                                <td th:text="${comment.date}"/>
+                            </tr>
+                        </table>
+
+                        <br/>
+                        <h3>Add comment</h3>
+                        <form th:action="@{/task/add/comment}" th:method="POST" th:object="${comment}" name="comment">
+                            <input type="hidden" name="idProject" th:value="${task.idProject}"/>
+                            <input type="hidden" name="idTask" th:value="${task.id}"/>
+                            <input type="hidden" name="login" th:value="${login}"/>
+                            <label>Write comment</label>
+                            <br/>
+                            <input type="text" name="comment" size="50" required/>
+                            <br/>
+                            <input type="submit" value="Add" style="background-color:DodgerBlue;"/>
+                            <input type="reset" value="Reset" style="background-color:Tomato;"/>
+                        </form>
                     </td>
                 </tr>
             </table>
