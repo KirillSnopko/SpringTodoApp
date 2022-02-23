@@ -12,6 +12,9 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.web.WebAppConfiguration;
 
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
 @DirtiesContext
 @ExtendWith(SpringExtension.class)
 @WebAppConfiguration
@@ -51,6 +54,14 @@ public class TestUserRepository {
     void getUser() {
         User userFromDB = userRepository.getByUserName(user.getLogin());
         Assertions.assertTrue(userFromDB.equals(user));
+    }
+
+    @Test
+    @Order(3)
+    void getAllUsers() {
+        UserRepository userRepository = mock(UserRepository.class);
+        when(userRepository.getByUserName("test")).thenReturn(user);
+        Assertions.assertTrue(user.equals(userRepository.getByUserName("test")));
     }
 
 
