@@ -57,6 +57,6 @@ public class TestUserRepository {
     @AfterAll
     @DisplayName("delete test user")
     void deleteUser() {
-        jdbcTemplate.update("DELETE from users where username=?", "test");
+        jdbcTemplate.update("DELETE from users where username=?", user.getLogin());
     }
 }
